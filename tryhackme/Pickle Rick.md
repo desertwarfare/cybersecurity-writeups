@@ -18,5 +18,6 @@ Reconnaissance (Passive and Active):
 5. I found the second key by simply navigating the system and found it inside `/home/rick`
 
 **Privilege Escalation**
+
 6. At some point, I was given a clue that the last key is inside `/root` directory, I also found out that this root is inaccessible. However, there's a way around this by typing `sudo` before `cat` or `ls` one can assume this is your own way of gaining more privileges when attempting to execute commands in this scenario.
 7. Retrieve final key.
