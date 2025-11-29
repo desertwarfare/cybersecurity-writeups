@@ -356,3 +356,60 @@ then we execute this command and use `netcat`
 make sure to give the shell script permissions `chmod +x script.sh`
 
 Level 25:
+
+
+Bandit 26:
+
+if you take a look at /etc/passwd while in bandit25, you'll find out that bandit26's shell is restricted and it only runs a showtext.txt file and terminates, to bypass this, you can minimize your window to the smallest size possible and then you can enter vim editor by typing vi
+
+after that, we need to break out of this restricted shell using vim, so we do CTRL + O and type in ":set shell=/bin/bash" and then do the same ":shell" and that should give us a shell
+
+inside this shell, explore your home directory and discover a bandit27-do binary executable, if you try to execute it, it would say it runs a command as another user, so we try to exeecute and add in "cat /etc/bandit_pass/bandit27" and boom, you have your pass
+
+Bandit 27:
+
+I changed my directory to /tmp, created a directory. Inside, I first used 'git init' to initalize a repository, then I typed in 'git clone ssh://bandit27-git@localhost:2220/home/bandit27-git/repo' notice the port portion is important otherwise it would say you're not permitted to connect via port 22. Inside you'll find your password.
+
+Bandit 28:
+
+After cloning and entering the repo, I noticed that the password's been obfuscated. Initally, I tried to use 'cat' or 'less' to read it, but it wouldn't show. Then I tried to read the .md file using 'git show' and it showed me the hidden pass.
+
+Bandit 29: 
+
+Following the same steps as the previous level, it even tells me there's a difference between old README.md and new README.md and to find it out you gotta write 'diff --git a/README.md b/README.md'
+
+Actually, after inspecting 'git log' the password is possibly stored in a different branch, tag or commit.
+
+git branch
+git log
+git show
+
+Password was never pressent in README.md evident by trying to check the README.md history difference
+
+git branch -a
+We saw:
+remotes/origin/dev
+remotes/origin/sploits-dev
+git checkout dev
+cat README.md
+
+
+Level 30:
+
+Find the password hidden in a Git tag.	Clone repo. Use git tag to list, then git show [tagname].
+
+Level 31:	
+
+Push a specific file to the remote repo.	Clone repo. echo "May I come in?" > key.txt. git add, git commit, git push. Then git pull for the new password file.
+
+Level 32: 
+
+Break out of a restricted shell.	Run a command (e.g., ls). When in the pager (less), type v to enter vim. In vim, type :set shell=/bin/bash then :shell.
+
+Level 33: 
+
+Use the bandit34-do binary to get the password.	In the new shell: ./bandit34-do cat /etc/bandit_pass/bandit34 (or similar file path). The output is the SSH key.
+
+Level 34:
+
+Log in using the SSH key.	Save key to file (chmod 600 key). ssh -i key bandit34@.... The final message is the answer.
